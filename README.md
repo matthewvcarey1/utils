@@ -1,2 +1,6 @@
 # Utils
-Some simple useful stuff
+Some simple useful stuff.
+
+A type agnostic Binchop function
+
+A type agnostic Quicksort function
