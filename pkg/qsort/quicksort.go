@@ -14,7 +14,7 @@ type Sorter interface {
 }
 
 // A type agnostic implentation of Quicksort
-func Quicksort(s Sorter) {
+func Quicksort(s Sorter, ascending bool) {
 	length := s.Len()
 	if length < 2 {
 		return
@@ -25,15 +25,23 @@ func Quicksort(s Sorter) {
 	s.Swap(pivot, right)
 
 	for i := 0; i < length; i++ {
-		if s.Compare(i, right) < 0 {
-			s.Swap(left, i)
-			left++
+		if ascending {
+			if s.Compare(i, right) < 0 {
+				s.Swap(left, i)
+				left++
+			}
+		} else {
+			if s.Compare(i, right) > 0 {
+				s.Swap(left, i)
+				left++
+			}
 		}
+
 	}
 	s.Swap(left, right)
 
-	Quicksort(s.Child(0, left))
-	Quicksort(s.Child(left+1, length))
+	Quicksort(s.Child(0, left), ascending)
+	Quicksort(s.Child(left+1, length), ascending)
 
 }
 
@@ -54,7 +62,7 @@ func (ss *stringSorter) Compare(a int, b int) int {
 	return strings.Compare(ss.slice[a], ss.slice[b])
 }
 
-// Child returns a stringSorter with a sub slice
+// Child returns a stringSorter pointer with a sub slice
 func (ss *stringSorter) Child(start int, end int) Sorter {
 	return &stringSorter{ss.slice[start:end]}
 }
@@ -65,10 +73,10 @@ func (ss *stringSorter) Len() int {
 }
 
 // QuickSortStrings a convenience fuction for sorting a slice of strings
-func QuickSortStrings(slice []string)  []string{
-	 ss := stringSorter{slice}
-	 Quicksort(&ss)
-	 return slice
+func QuickSortStrings(slice []string, ascending bool) []string {
+	ss := stringSorter{slice}
+	Quicksort(&ss, ascending)
+	return slice
 }
 
 // A structure for int sorting
@@ -86,7 +94,7 @@ func (is *intSorter) Compare(a int, b int) int {
 	return is.slice[a] - is.slice[b]
 }
 
-// Child returns an intSorter with a sub slice
+// Child returns an intSorter pointer with a sub slice
 func (is *intSorter) Child(start int, end int) Sorter {
 	return &intSorter{is.slice[start:end]}
 }
@@ -97,8 +105,8 @@ func (is *intSorter) Len() int {
 }
 
 // QuickSortStrings a convenience fuction for sorting a slice of ints
-func QuickSortInts(slice []int)  []int{
+func QuickSortInts(slice []int, ascending bool) []int {
 	is := intSorter{slice}
-	Quicksort(&is)
+	Quicksort(&is, ascending)
 	return slice
 }

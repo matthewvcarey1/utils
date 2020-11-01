@@ -55,7 +55,6 @@ func (is *intSorter) Len() int {
 	return len(is.slice)
 }
 
-
 func pickStringValueInSlice(s []string) string {
 	index := rand.Intn(len(s) - 1)
 	return s[index]
@@ -122,7 +121,7 @@ func main() {
 	for x := 0; x < 1; x++ {
 		slice := generateSlice(500)
 		fmt.Println("\n--- Unsorted --- \n\n", slice)
-		qsort.QuickSortInts(slice)
+		qsort.QuickSortInts(slice, true)
 		fmt.Println("\n--- Sorted ---\n\n", slice)
 		inslice := pickValueInSlice(slice)
 		outslice := pickValueNotInSlice(slice)
@@ -153,7 +152,7 @@ func main() {
 		//ss := stringSorter{sslice}
 		fmt.Println("\n--- Unsorted --- \n\n", sslice)
 		//qsort.Quicksort(&ss)
-		qsort.QuickSortStrings(sslice)
+		qsort.QuickSortStrings(sslice, true)
 		fmt.Println("\n--- Sorted ---\n\n", sslice)
 		lookfor := pickStringValueInSlice(sslice)
 		sc := stringSliceComp{sslice}
