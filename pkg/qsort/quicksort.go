@@ -103,17 +103,17 @@ func QuickSortInts(slice []int, ascending bool) []int {
 	return slice
 }
 
-// A structure for int sorting
+// A structure for float64 sorting
 type float64Sorter struct {
 	slice []float64
 }
 
-// Swap swaps two ints in a slice
+// Swap swaps two float64s in a slice
 func (fs *float64Sorter) Swap(a int, b int) {
 	fs.slice[a], fs.slice[b] = fs.slice[b], fs.slice[a]
 }
 
-// Compare two ints in a slice
+// Compare two float64s in a slice
 func (fs *float64Sorter) Compare(a int, b int) int {
 	diff := fs.slice[a] - fs.slice[b]
 	if diff < 0.0{
@@ -125,12 +125,12 @@ func (fs *float64Sorter) Compare(a int, b int) int {
 	return 0
 }
 
-// Child returns an intSorter pointer with a sub slice
+// Child returns an float64Sorter pointer with a sub slice
 func (fs *float64Sorter) Child(start int, end int) Sorter {
 	return &float64Sorter{fs.slice[start:end]}
 }
 
-// Len returns the intSorter's slice length
+// Len returns the float64Sorter's slice length
 func (fs *float64Sorter) Len() int {
 	return len(fs.slice)
 }
