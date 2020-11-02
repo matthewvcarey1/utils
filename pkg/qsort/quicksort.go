@@ -25,18 +25,10 @@ func Quicksort(s Sorter, ascending bool) {
 	s.Swap(pivot, right)
 
 	for i := 0; i < length; i++ {
-		if ascending {
-			if s.Compare(i, right) < 0 {
-				s.Swap(left, i)
-				left++
-			}
-		} else {
-			if s.Compare(i, right) > 0 {
-				s.Swap(left, i)
-				left++
-			}
+		if (ascending && s.Compare(i, right) < 0) || (!ascending && s.Compare(i, right) > 0) {
+			s.Swap(left, i)
+			left++
 		}
-
 	}
 	s.Swap(left, right)
 
